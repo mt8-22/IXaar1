@@ -15,6 +15,9 @@ struct Cars{
 };
 
 void print_data(struct Cars *car, int car_count);
+int comp_price_to_up(const void* a, const void* b);
+int comp_price_to_down(const void* a, const void* b);
+
 int main( ) {
   int n;
   printf("Введите кол-во машин: ");
@@ -42,10 +45,36 @@ int main( ) {
   }
 
   print_data(car,n);
-
+  qsort(car, n, sizeof(struct Cars), comp_price_to_up);
+  print_data(car,n);
+  qsort(car, n, sizeof(struct Cars), comp_price_to_down);
+  print_data(car,n);
 
   return 0;
 }
+
+int comp_price_to_up(const void* a, const void* b){
+  struct Cars *car1 = (struct Cars *)a;
+  struct Cars *car2 = (struct Cars *)b;
+  if (strcmp(car1->price , car2->price) == 0){
+    return (car1->id - car2->id);
+    } 
+  else{
+    return strcmp(car1->price , car2->price);
+  }
+}
+
+int comp_price_to_down(const void* a, const void* b){
+  struct Cars *car1 = (struct Cars *)a;
+  struct Cars *car2 = (struct Cars *)b;
+  if (strcmp(car1->price , car2->price) == 0){
+    return car1->id - car2->id;
+    } 
+  else{
+    return -strcmp(car1->price , car2->price);
+  }
+}
+
 
 void print_data(struct Cars *car, int car_count){
   ft_table_t *table = ft_create_table();
@@ -53,11 +82,10 @@ void print_data(struct Cars *car, int car_count){
   ft_write_ln(table, "ID", "Model", "Country", "Price", "Color","State","Mileage","Repair count");
   for(int i = 0; i < car_count; i++){
     char buffer[20];
-    sprintf(buffer, "%d" ,i);
+    sprintf(buffer, "%d" ,car[i].id);
     const char *line[] = {buffer,car[i].model,car[i].country,car[i].price,car[i].color,car[i].state,car[i].mileage,car[i].repairs_count};
     ft_row_write_ln(table, 8, line);                                                
   }
     printf("%s\n", ft_to_string(table));
     ft_destroy_table(table);
 }
-    
