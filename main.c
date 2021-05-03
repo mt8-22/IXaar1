@@ -236,9 +236,6 @@ int comp_by_price_to_down(const void* a, const void* b){
 }
 
 void print_data(struct Cars *car, int car_count){
-  ft_table_t *table = ft_create_table();
-  ft_set_cell_prop(table, 0, FT_ANY_COLUMN, FT_CPROP_ROW_TYPE, FT_ROW_HEADER);
-  ft_write_ln(table, "ID", "Model", "Country", "Price", "Color","State","Mileage","Repair count");
   printf("%15s|%15s|%15s|%15s|%15s|%15s|%15s|%15s\n","ID", "Model", "Country", "Price", "Color","State","Mileage","Repair count");
   for(int i = 0; i < car_count; i++){
     printf("%15d|%15s|%15s|%15d|%15s|%15s|%15s|%15s\n",car[i].id, car[i].model, car[i].country, car[i].price, car[i].color, car[i].state, car[i].mileage, car[i].repairs_count);                                                
