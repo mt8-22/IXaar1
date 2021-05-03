@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "fort.h"
 
 struct Cars{
   int id;
@@ -154,7 +153,6 @@ int main( ) {
         getchar();
     }
   } while(variant != 9);
-  
   return 0;
 }
 
@@ -173,47 +171,23 @@ void print_menu() {
     printf(">");
 }
 
-
 void print_bu_in_chosen_price(struct Cars *car, int car_count, int price_down, int price_up, char *model){
-  ft_table_t *table = ft_create_table();
-  ft_set_cell_prop(table, 0, FT_ANY_COLUMN, FT_CPROP_ROW_TYPE, FT_ROW_HEADER);
-  ft_write_ln(table, "Search result","");
+  printf("%15s|%15s|%15s|%15s|%15s|%15s|%15s|%15s\n","ID", "Model", "Country", "Price", "Color","State","Mileage","Repair count");
   for(int i = 0; i < car_count; i++){
     if(strcmp(car[i].state,"bu") == 0 && strcmp(car[i].model, model) == 0 && strcmp(car[i].repairs_count,"0") == 0 && car[i].price >= price_down && car[i].price <= price_up){
-      char buffer1[20];
-      sprintf(buffer1, "%d" ,car[i].id);
-      char buffer2[20];
-      sprintf(buffer2, "%d" ,car[i].price);
-      const char *line[] = {buffer1,car[i].model,car[i].country,buffer2,car[i].color,car[i].state,car[i].mileage,car[i].repairs_count};
-      ft_row_write_ln(table, 8, line); 
+      printf("%15d|%15s|%15s|%15d|%15s|%15s|%15s|%15s\n",car[i].id, car[i].model, car[i].country, car[i].price, car[i].color, car[i].state, car[i].mileage, car[i].repairs_count); 
     }
   }
-  ft_set_cell_span(table, 0, 0, 8);
-  ft_set_cell_prop(table,0,0,FT_CPROP_TEXT_ALIGN,FT_ALIGNED_CENTER);
-  printf("%s\n", ft_to_string(table));
-  ft_destroy_table(table);
 }
 
 void print_russia(struct Cars *car, int car_count){
-  ft_table_t *table = ft_create_table();
-  ft_set_cell_prop(table, 0, FT_ANY_COLUMN, FT_CPROP_ROW_TYPE, FT_ROW_HEADER);
-  ft_write_ln(table, "Only Russian cars","");
-  ft_write_ln(table, "ID", "Model", "Country", "Price", "Color","State","Mileage","Repair count");
-  ft_add_separator(table);
+  printf("Only russian cars:\n");
+  printf("%15s|%15s|%15s|%15s|%15s|%15s|%15s|%15s\n","ID", "Model", "Country", "Price", "Color","State","Mileage","Repair count");
   for(int i = 0; i < car_count; i++){
     if(strcmp(car[i].country,"russia") == 0 || strcmp(car[i].country,"Russia") == 0){
-    char buffer1[20];
-    sprintf(buffer1, "%d" ,car[i].id);
-    char buffer2[20];
-    sprintf(buffer2, "%d" ,car[i].price);
-    const char *line[] = {buffer1,car[i].model,car[i].country,buffer2,car[i].color,car[i].state,car[i].mileage,car[i].repairs_count};
-    ft_row_write_ln(table, 8, line);  
+    printf("%15d|%15s|%15s|%15d|%15s|%15s|%15s|%15s\n",car[i].id, car[i].model, car[i].country, car[i].price, car[i].color, car[i].state, car[i].mileage, car[i].repairs_count);   
     }
   }
-  ft_set_cell_span(table, 0, 0, 8);
-  ft_set_cell_prop(table,0,0,FT_CPROP_TEXT_ALIGN,FT_ALIGNED_CENTER);
-  printf("%s\n", ft_to_string(table));
-  ft_destroy_table(table);
 }
 
 int comp_by_id_up(const void* a, const void* b){
@@ -261,20 +235,12 @@ int comp_by_price_to_down(const void* a, const void* b){
   }
 }
 
-
 void print_data(struct Cars *car, int car_count){
   ft_table_t *table = ft_create_table();
   ft_set_cell_prop(table, 0, FT_ANY_COLUMN, FT_CPROP_ROW_TYPE, FT_ROW_HEADER);
   ft_write_ln(table, "ID", "Model", "Country", "Price", "Color","State","Mileage","Repair count");
+  printf("%15s|%15s|%15s|%15s|%15s|%15s|%15s|%15s\n","ID", "Model", "Country", "Price", "Color","State","Mileage","Repair count");
   for(int i = 0; i < car_count; i++){
-    char buffer1[20];
-    sprintf(buffer1, "%d" ,car[i].id);
-    char buffer2[20];
-    sprintf(buffer2, "%d" ,car[i].price);
-    const char *line[] = {buffer1,car[i].model,car[i].country,buffer2,car[i].color,car[i].state,car[i].mileage,car[i].repairs_count};
-    ft_row_write_ln(table, 8, line);                                                
+    printf("%15d|%15s|%15s|%15d|%15s|%15s|%15s|%15s\n",car[i].id, car[i].model, car[i].country, car[i].price, car[i].color, car[i].state, car[i].mileage, car[i].repairs_count);                                                
   }
-  printf("%s\n", ft_to_string(table));
-  ft_destroy_table(table);
 }
-    
